@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Pet, PetCompleto, PagedResponse } from '../models';
+import { Pet, PetCompleto, PetRequestDto, PagedResponse, Anexo } from '../models';
 import { environment } from '../../../environments/environment';
 
 export interface PetFilter {
@@ -59,6 +59,20 @@ export class PetService {
 
   getPetById(id: number): Observable<PetCompleto> {
     return this.http.get<PetCompleto>(`${this.API_URL}/${id}`);
+  }
+
+  createPet(pet: PetRequestDto): Observable<Pet> {
+    return this.http.post<Pet>(this.API_URL, pet);
+  }
+
+  updatePet(id: number, pet: PetRequestDto): Observable<Pet> {
+    return this.http.put<Pet>(`${this.API_URL}/${id}`, pet);
+  }
+
+  uploadFoto(petId: number, foto: File): Observable<Anexo> {
+    const formData = new FormData();
+    formData.append('foto', foto);
+    return this.http.post<Anexo>(`${this.API_URL}/${petId}/fotos`, formData);
   }
 
   getCurrentPets(): PagedResponse<Pet> | null {

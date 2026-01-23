@@ -69,9 +69,20 @@ import { PetCompleto, Tutor } from '../../../../core/models';
 
               <!-- Pet Name Badge -->
               <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-                <h1 class="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg">
-                  {{ pet()!.nome }}
-                </h1>
+                <div class="flex items-end justify-between">
+                  <h1 class="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg">
+                    {{ pet()!.nome }}
+                  </h1>
+                  <a
+                    [routerLink]="['/pets', pet()!.id, 'editar']"
+                    class="inline-flex items-center px-4 py-2 bg-white/90 hover:bg-white text-gray-900 text-sm font-medium rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    <svg class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Editar
+                  </a>
+                </div>
               </div>
             </div>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { PetService, PetFilter } from '../../../../core/services/pet.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Pet, PagedResponse } from '../../../../core/models';
@@ -10,14 +11,25 @@ import { SearchBoxComponent } from '../../../../shared/components/search-box/sea
 @Component({
   selector: 'app-pet-list',
   standalone: true,
-  imports: [CommonModule, PetCardComponent, PaginationComponent, SearchBoxComponent],
+  imports: [CommonModule, RouterLink, PetCardComponent, PaginationComponent, SearchBoxComponent],
   template: `
     <div class="min-h-screen bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
-        <div class="mb-8">
-          <h1 class="text-3xl font-bold text-gray-900">Pets</h1>
-          <p class="mt-2 text-gray-600">Encontre seu novo companheiro</p>
+        <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900">Pets</h1>
+            <p class="mt-2 text-gray-600">Encontre seu novo companheiro</p>
+          </div>
+          <a
+            routerLink="/pets/novo"
+            class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+          >
+            <svg class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Novo Pet
+          </a>
         </div>
 
         <!-- Search -->
