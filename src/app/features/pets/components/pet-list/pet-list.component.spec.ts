@@ -39,18 +39,8 @@ describe('PetListComponent', () => {
   it('should display loading state initially', () => {
     fixture.detectChanges();
 
-    const authReq = httpMock.expectOne('https://pet-manager-api.geia.vip/autenticacao/login');
-    expect(authReq.request.method).toBe('POST');
-
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.animate-spin')).toBeTruthy();
-
-    authReq.flush({
-      access_token: 'test-token',
-      refresh_token: 'test-refresh',
-      expires_in: 300,
-      refresh_expires_in: 3600
-    });
 
     const petsReq = httpMock.expectOne(req => req.url.includes('/v1/pets'));
     petsReq.flush({ page: 0, size: 10, total: 0, pageCount: 0, content: [] });
@@ -58,14 +48,6 @@ describe('PetListComponent', () => {
 
   it('should display pets after loading', () => {
     fixture.detectChanges();
-
-    const authReq = httpMock.expectOne('https://pet-manager-api.geia.vip/autenticacao/login');
-    authReq.flush({
-      access_token: 'test-token',
-      refresh_token: 'test-refresh',
-      expires_in: 300,
-      refresh_expires_in: 3600
-    });
 
     const petsReq = httpMock.expectOne(req => req.url.includes('/v1/pets'));
     petsReq.flush({
@@ -89,14 +71,6 @@ describe('PetListComponent', () => {
   it('should handle empty results', () => {
     fixture.detectChanges();
 
-    const authReq = httpMock.expectOne('https://pet-manager-api.geia.vip/autenticacao/login');
-    authReq.flush({
-      access_token: 'test-token',
-      refresh_token: 'test-refresh',
-      expires_in: 300,
-      refresh_expires_in: 3600
-    });
-
     const petsReq = httpMock.expectOne(req => req.url.includes('/v1/pets'));
     petsReq.flush({
       page: 0,
@@ -114,14 +88,6 @@ describe('PetListComponent', () => {
 
   it('should update search term and reload pets', () => {
     fixture.detectChanges();
-
-    const authReq = httpMock.expectOne('https://pet-manager-api.geia.vip/autenticacao/login');
-    authReq.flush({
-      access_token: 'test-token',
-      refresh_token: 'test-refresh',
-      expires_in: 300,
-      refresh_expires_in: 3600
-    });
 
     const initialReq = httpMock.expectOne(req => req.url.includes('/v1/pets'));
     initialReq.flush({ page: 0, size: 10, total: 0, pageCount: 0, content: [] });

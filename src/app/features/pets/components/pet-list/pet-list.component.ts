@@ -2,7 +2,6 @@ import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PetService, PetFilter } from '../../../../core/services/pet.service';
-import { AuthService } from '../../../../core/services/auth.service';
 import { Pet, PagedResponse } from '../../../../core/models';
 import { PetCardComponent } from '../pet-card/pet-card.component';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
@@ -118,7 +117,6 @@ import { SearchBoxComponent } from '../../../../shared/components/search-box/sea
 })
 export class PetListComponent implements OnInit {
   private petService = inject(PetService);
-  private authService = inject(AuthService);
 
   loading = signal(false);
   error = signal<string | null>(null);
@@ -133,22 +131,7 @@ export class PetListComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.authenticate();
-  }
-
-  private authenticate(): void {
-    if (!this.authService.getToken()) {
-      this.loading.set(true);
-      this.authService.login({ username: 'admin', password: 'admin' }).subscribe({
-        next: () => this.loadPets(),
-        error: (err) => {
-          this.error.set('Falha na autenticação. Tente novamente.');
-          this.loading.set(false);
-        }
-      });
-    } else {
-      this.loadPets();
-    }
+    this.loadPets();
   }
 
   private loadPets(): void {

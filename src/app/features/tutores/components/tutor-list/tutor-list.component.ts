@@ -2,7 +2,6 @@ import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TutorService, TutorFilter } from '../../../../core/services/tutor.service';
-import { AuthService } from '../../../../core/services/auth.service';
 import { Tutor, PagedResponse } from '../../../../core/models';
 import { TutorCardComponent } from '../tutor-card/tutor-card.component';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
@@ -117,7 +116,6 @@ import { SearchBoxComponent } from '../../../../shared/components/search-box/sea
 })
 export class TutorListComponent implements OnInit {
   private tutorService = inject(TutorService);
-  private authService = inject(AuthService);
 
   loading = signal(false);
   error = signal<string | null>(null);
@@ -132,22 +130,7 @@ export class TutorListComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.authenticate();
-  }
-
-  private authenticate(): void {
-    if (!this.authService.getToken()) {
-      this.loading.set(true);
-      this.authService.login({ username: 'admin', password: 'admin' }).subscribe({
-        next: () => this.loadTutors(),
-        error: () => {
-          this.error.set('Falha na autenticacao. Tente novamente.');
-          this.loading.set(false);
-        }
-      });
-    } else {
-      this.loadTutors();
-    }
+    this.loadTutors();
   }
 
   private loadTutors(): void {
