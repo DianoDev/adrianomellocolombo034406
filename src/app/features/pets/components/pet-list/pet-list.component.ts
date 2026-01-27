@@ -15,6 +15,25 @@ import { SearchBoxComponent } from '../../../../shared/components/search-box/sea
   template: `
     <div class="min-h-screen bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Navigation Tabs -->
+        <div class="mb-6 border-b border-gray-200">
+          <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+            <a
+              routerLink="/pets"
+              class="border-indigo-500 text-indigo-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium"
+              aria-current="page"
+            >
+              Pets
+            </a>
+            <a
+              routerLink="/tutores"
+              class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium"
+            >
+              Tutores
+            </a>
+          </nav>
+        </div>
+
         <!-- Header -->
         <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
