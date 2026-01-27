@@ -40,3 +40,13 @@ export interface PetRequestDto {
   raca?: string;
   idade?: number;
 }
+
+export interface TutorCompleto extends Tutor {
+  pets?: Pet[];
+}
+
+export interface TutorRequestDto {
+  nome: string;
+  telefone?: string;
+  endereco?: string;
+}
