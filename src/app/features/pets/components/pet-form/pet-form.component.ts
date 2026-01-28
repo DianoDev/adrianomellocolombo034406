@@ -123,14 +123,15 @@ import { PetCompleto } from '../../../../core/models';
             <div class="mb-6">
               <label for="idade" class="block text-sm font-medium text-gray-700 mb-2">Idade (anos)</label>
               <input
-                type="number"
+                type="text"
+                inputmode="numeric"
                 id="idade"
                 formControlName="idade"
-                min="0"
-                max="100"
+                maxlength="3"
                 class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-4 py-3 border transition-colors"
                 [class.border-red-500]="form.get('idade')?.invalid && form.get('idade')?.touched"
-                placeholder="Digite a idade"
+                placeholder="Ex: 5"
+                (input)="onIdadeInput($event)"
               />
               @if (form.get('idade')?.invalid && form.get('idade')?.touched) {
                 <p class="mt-1 text-sm text-red-600">Idade deve ser um número entre 0 e 100</p>
@@ -273,6 +274,21 @@ export class PetFormComponent implements OnInit {
         this.loadingInitial.set(false);
       }
     });
+  }
+
+  onIdadeInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/\D/g, '');
+
+    if (value.length > 0) {
+      const numValue = parseInt(value, 10);
+      if (numValue > 100) {
+        value = '100';
+      }
+    }
+
+    input.value = value;
+    this.form.get('idade')?.setValue(value ? parseInt(value, 10) : null, { emitEvent: false });
   }
 
   onFileSelected(event: Event): void {
