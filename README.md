@@ -156,6 +156,13 @@ O front-end implementa todos os campos disponíveis na API.
 - npm 10+
 - Docker e Docker Compose (para execução containerizada)
 
+### Clonar o Repositório
+
+```bash
+git clone https://github.com/DianoDev/adrianomellocolombo034406.git
+cd adrianomellocolombo034406
+```
+
 ### Desenvolvimento Local
 
 ```bash
